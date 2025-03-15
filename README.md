@@ -1,82 +1,130 @@
 # MusTax AI Chatbot
 
-An AI-powered chatbot for UAE Corporate Tax with document processing and RAG capabilities.
+An AI-powered chatbot for UAE Corporate Tax information with document processing and RAG (Retrieval-Augmented Generation) capabilities.
 
 ## Features
 
-- Chat with AI about UAE Corporate Tax
-- Upload and process documents (PDF, DOCX, text, markdown)
-- Structured JSON processing of document content
-- RAG (Retrieval Augmented Generation) for accurate responses
-- Knowledge base management
-- User authentication
+- **Document Processing**: Upload and process various document types (PDF, DOCX, TXT)
+- **Vision API**: Extract text from images and documents using advanced vision models
+- **RAG System**: Retrieve relevant information from your documents to enhance AI responses
+- **Multiple AI Models**: Support for OpenAI and Anthropic models via OpenRouter
+- **Authentication**: Secure user authentication with NextAuth
+- **Responsive UI**: Modern, responsive interface built with Next.js and Tailwind CSS
 
-## Document Processing with Llama Vision
+## Technical Architecture
 
-The application uses advanced vision models to extract text from documents. The extracted text is processed into structured JSON format for better context retrieval.
+### Frontend
+- Next.js 14 with App Router
+- React Server Components
+- Tailwind CSS for styling
+- Shadcn UI components
 
-## Structured JSON Processing
+### Backend
+- Next.js API routes
+- Pinecone for vector database
+- OpenAI for embeddings and chat completions
+- OpenRouter for access to multiple AI models
+- NextAuth for authentication
 
-The system processes documents into structured JSON format:
+### Document Processing
+- Vision API for document text extraction
+- Robust JSON processing for structured data
+- Section detection for better context retrieval
+- Fallback mechanisms for handling various response formats
 
-1. **Section Identification**: Automatically identifies and separates document sections
-2. **Structure Preservation**: Maintains the hierarchical structure of documents
-3. **Context Retrieval**: Enables more precise context retrieval for AI responses
-4. **Enhanced Responses**: Improves AI response quality with structured information
+## Getting Started
 
-## Supported File Types
+### Prerequisites
+- Node.js 18+
+- pnpm (recommended) or npm
+- OpenAI API key
+- Pinecone API key
+- OpenRouter API key (optional, for additional models)
 
-- PDF files
-- DOCX documents
-- Text files
-- Markdown files
+### Installation
 
-## Installation
+1. Clone the repository:
+```bash
+git clone https://github.com/letstalktax/test309.git
+cd test309
+```
 
-1. Clone the repository
 2. Install dependencies:
-   ```bash
-   pnpm install
-   ```
-3. Set up environment variables:
-   ```bash
-   cp .env.example .env.local
-   ```
-4. Start the development server:
-   ```bash
-   pnpm run dev
-   ```
-
-## Configuration
-
-You'll need to obtain an OpenRouter API key for the Vision API and add it to your `.env.local` file:
-
-```
-OPENROUTER_API_KEY=your_api_key_here
+```bash
+pnpm install
 ```
 
-## Knowledge Base Management
+3. Create a `.env.local` file based on `.env.example`:
+```bash
+cp .env.example .env.local
+```
 
-The application includes a knowledge base management system for administrators to:
+4. Fill in your API keys and configuration in `.env.local`:
+```
+# App
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-- Upload documents to the knowledge base
-- View and manage existing documents
-- Process documents for RAG
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-nextauth-secret
 
-## Project Structure
+# OpenAI
+OPENAI_API_KEY=your-openai-api-key
 
-- `/app` - Next.js application routes
-- `/components` - React components
-- `/lib` - Utility functions and libraries
-- `/public` - Static assets
-- `/docs` - Documentation
+# Pinecone
+PINECONE_API_KEY=your-pinecone-api-key
+PINECONE_INDEX_NAME=your-pinecone-index-name
+PINECONE_HOST_URL=your-pinecone-host-url
 
-## API Routes
+# OpenRouter (optional)
+OPENROUTER_API_KEY=your-openrouter-api-key
+```
 
-- `/api/chat` - Chat API endpoint
-- `/api/vision` - Document processing endpoint
-- `/api/files/upload` - File upload endpoint
+5. Start the development server:
+```bash
+pnpm dev
+```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Usage
+
+### Authentication
+1. Sign up or log in to access the chatbot.
+2. Use the provided demo credentials or create your own account.
+
+### Document Upload
+1. Navigate to the Documents section.
+2. Upload your documents (PDF, DOCX, TXT).
+3. The system will process and index your documents automatically.
+
+### Chatting with the AI
+1. Go to the Chat section.
+2. Ask questions related to UAE Corporate Tax or your uploaded documents.
+3. The AI will retrieve relevant information and provide accurate responses.
+
+## Document Processing Pipeline
+
+1. **Upload**: User uploads a document through the UI
+2. **Text Extraction**: Vision API extracts text from the document
+3. **JSON Processing**: Text is converted to structured JSON with sections
+4. **Chunking**: Text is split into semantic chunks for embedding
+5. **Embedding**: OpenAI generates embeddings for each chunk
+6. **Storage**: Embeddings are stored in Pinecone with metadata
+7. **Retrieval**: When a user asks a question, relevant chunks are retrieved
+8. **Response Generation**: AI generates a response using the retrieved context
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+- OpenAI for providing the embedding and completion models
+- Pinecone for vector database services
+- OpenRouter for access to multiple AI models
+- Next.js team for the amazing framework
